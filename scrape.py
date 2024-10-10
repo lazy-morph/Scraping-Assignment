@@ -3,7 +3,7 @@ import requests
 import os
 import json
 
-pages = 139  #This page no has been hardcoded because the website is using javascript rendering for loading the content. Otherwise the info is hidden. 
+pages = 139  # This page no has been hardcoded because the website is using javascript rendering for loading the content. Otherwise the info is hidden.
 headers = {
     "accept": "application/json, text/plain, */*",
     "accept-encoding": "gzip, deflate, br",
@@ -41,23 +41,29 @@ else:
     print(f"Folder '{folder_name}' already exists at {new_folder_path}.")
 
 
-for i in range(1,pages+1):  #This for loop will run for all the pages on the website.
+for i in range(
+    1, pages + 1
+):  # This for loop will run for all the pages on the website.
     flag = False
-    url = f"https://public-api.goldstandard.org/projects?query=&page={i}&size=25&sortColumn=&sortDirection="        #openapi to get the project details from the pages
-    for j in range(5):      #This for loop is for retrying a url for upto 5 times. 
-        time.sleep(2)           #This sleep is to slow down the traffic that reaches website from the current IP. had to be done as after some pages there was too many requests error popping up.
+    url = f"https://public-api.goldstandard.org/projects?query=&page={i}&size=25&sortColumn=&sortDirection="  # openapi to get the project details from the pages
+    for j in range(5):  # This for loop is for retrying a url for upto 5 times.
+        time.sleep(
+            2
+        )  # This sleep is to slow down the traffic that reaches website from the current IP. had to be done as after some pages there was too many requests error popping up.
         try:
-            res = requests.get(url, headers=headers)        #Make request to the API url.
+            res = requests.get(url, headers=headers)  # Make request to the API url.
 
-            if res.status_code == 200:          #If the request is successful then extract the json and dump into the folder.
+            if (
+                res.status_code == 200
+            ):  # If the request is successful then extract the json and dump into the folder.
                 data = res.json()
                 json_file_path = os.path.join(new_folder_path, f"page_{i}.json")
 
-                with open(json_file_path, 'w') as json_file:
+                with open(json_file_path, "w") as json_file:
                     json.dump(data, json_file, indent=4, ensure_ascii=False)
 
                 flag = True
-            
+
             if flag:
                 print(f"Page {i} scraping successful.")
                 break
@@ -66,8 +72,6 @@ for i in range(1,pages+1):  #This for loop will run for all the pages on the web
             print(e)
 
 
-
-
-
-
-
+# https://public-api.goldstandard.org/projects/4653
+# This url can be used to get the project information directly using the project code.
+# But the same information is also present on the projects page for each project hence not using this url to limit the number of requests.

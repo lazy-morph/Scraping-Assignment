@@ -1,4 +1,4 @@
-# Calyx_Global_Assignment
+# Scraping_Assignment
 Repository for Calyx Global Assignment
 
 For running this code clone the repository to your local machine.

@@ -1,5 +1,5 @@
 # Scraping_Assignment
-Repository for Calyx Global Assignment
+Repository for Assignment
 
 For running this code clone the repository to your local machine.
 Please make sure that python3 is installed in the system.
